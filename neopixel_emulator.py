@@ -12,6 +12,7 @@ class NeoPixel_Emulator(pyglet.window.Window):
         self.alive = 1
         self.circle_img = pyglet.image.load(f"circle{pixsize}.png")
         self.pixsize = pixsize
+        self.n_per_row = window_w // (pixsize)
 
     def draw_LEDs(self, led_number):
         for led in range(led_number):
@@ -19,10 +20,10 @@ class NeoPixel_Emulator(pyglet.window.Window):
                 pyglet.sprite.Sprite(
                     img=self.circle_img,
                     batch=self.batch,
-                    x=(led - 50 * (led // 50)) * (self.pixsize),
+                    x=(led - self.n_per_row * (led // self.n_per_row)) * (self.pixsize),
                     y=self.height
                     - (self.pixsize - 1)
-                    - ((led // 50) * (self.pixsize - 1))
+                    - ((led // self.n_per_row) * (self.pixsize - 1))
                     - 5,
                     group=self.color_group,
                 )
