@@ -15,6 +15,7 @@ class Adafruit_NeoPixel:
         self.gui = NeoPixel_Emulator(
             window_w=window_w, window_h=window_h, pixsize=self.pixsize
         )
+
         self.pixel_list = list()
         for pixel in range(self.pixel_number):
             self.pixel_list.append(Pixel(pixel))
@@ -69,3 +70,6 @@ class Adafruit_NeoPixel:
 
     def delay(self, ms):
         time.sleep(ms / 1000)
+
+    def fclose(self):
+        self.gui.close()
