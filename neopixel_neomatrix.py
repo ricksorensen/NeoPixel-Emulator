@@ -28,13 +28,14 @@ class Adafruit_NeoMatrix(Adafruit_GFX):
         self.pixels = Adafruit_NeoPixel(
             self.width * self.height, self.pin, "NEO_GRB + NEO_KHZ800", pixsize=pixsize
         )
+        self.pixsize = pixsize
 
     def delay(self, ms):
         sleep(ms / 1000)
 
     def begin(self):
-        needed_w = self.width * 35
-        needed_h = self.height * 34 + 4
+        needed_w = self.width * self.pixsize
+        needed_h = self.height * (self.pixsize - 1) + 4
         self.pixels.begin(
             draw_matrix=True,
             width=self.width,
