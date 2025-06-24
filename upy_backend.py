@@ -2,13 +2,28 @@ from pixel import Pixel
 from neopixel_emulator import NeoPixel_Emulator
 
 
+class machine:
+    """Dummy implementation if needed"""
+
+    class Pin:
+        def __init__(self, pref):
+            self.p = pref
+
+    def _init_(self):
+        pass
+
+
 class NeoPixel:
-    def __init__(self, pixel_pin, pixel_num, window_w=1765, window_h=400, pixsize=35):
+    def __init__(
+        self, pixel_pin, pixel_num, init=True, window_w=1765, window_h=400, pixsize=10
+    ):
         self.pixel_number = pixel_num
         self.pin = pixel_pin
         self.brightness = 100
         self.pixsize = pixsize
         self.started = False
+        if init:
+            self.begin(window_w=window_w, window_h=window_h)
 
     def begin(self, width=None, height=None, window_w=1765, window_h=400):
         self.gui = NeoPixel_Emulator(
