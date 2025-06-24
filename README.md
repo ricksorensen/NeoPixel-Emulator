@@ -9,12 +9,13 @@ This emulator has two main ways to emulate. One is a simple NeoPixel strip with 
 
 ## modules
 
+Here be modules.
+
   * `emulator_backend`:  emulate the `circuitpython` `neopixel`  API  (see `neopixel_emulator` for LED emulation)
   * `pixel`: simple class to hold pixel information 
   * `neopixel_emulator`: emulate the `neopixel` LED strip activation with `pyglet`
   * `neopixel_effects`: drive effects into LED strip, `circuitpython` dependent independent emulator of LED hardware
   * `neopixel_gfx`: special effects, independent of emulator/hardware
-
   * `neopixel_viewer`: demonstration 
   * `neopixel_neomatrix`: demonstration
 
@@ -23,11 +24,11 @@ This emulator has two main ways to emulate. One is a simple NeoPixel strip with 
 
 NeoPixel class emulator in CPython with Pyglet for `micropython` `neopixel` class.
 
-  *  `upy_backend`:  emulate the `micropython` `neopixel`  API  (see `neopixel_emulator` for LED emulation)
+  * `upy_backend`:  emulate the `micropython` `neopixel`  API  (see `neopixel_emulator` for LED emulation)
   * `upy_effects`: drive effects into LED strip, `micropython` dependent  emulator of LED hardware
-  *  `led_panel`: demonstration class
-  *  `rjstext`: demonstration drive led_panel
-  *  `upy_viewer`: demonstration
-  *  `upy_matrix`: demonstration
+          - circuitpython and micropython neopixel classes have different methods for pixel access.
+  * `led_panel`: demonstration class with effects derived from <https://github.com/MikeEllis-personal/DMXfire.git>
+  * `rjstext`: demonstration drive led_panel
+  * `upy_viewer`: demonstration
+  * `upy_matrix`: demonstration
 
-		
