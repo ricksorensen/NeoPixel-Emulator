@@ -24,7 +24,9 @@ class NeoMatrix(Adafruit_GFX):
         self.absoluteWidth = width
         self.absoluteHeight = height
         self.pin = pin
-        self.pixels = NeoPixel(self.pin, self.width * self.height, pixsize=pixsize)
+        self.pixels = NeoPixel(
+            self.pin, self.width * self.height, pixsize=pixsize, init=False
+        )
         self.pixsize = pixsize
         self.begin(width=width, height=height)
 

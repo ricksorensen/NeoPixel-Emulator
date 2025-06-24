@@ -1,11 +1,9 @@
 try:
     from neopixel import NeoPixel
-    from machine import Pin
+    import machine
 except ModuleNotFoundError:
     from upy_backend import NeoPixel
-
-    def Pin(x):
-        return x
+    from upy_backend import machine
 
 
 from upy_effects import NeoPixel_Effects
@@ -17,7 +15,7 @@ def mydelay(ms):
 
 
 def run():
-    pixels = NeoPixel(Pin(2), 51)  # pixsize=10
+    pixels = NeoPixel(machine.Pin(2), 51)  # pixsize=10
     # pixels.begin()
     effects = NeoPixel_Effects(pixels)
     pixels[2] = (255, 200, 10)
