@@ -9,7 +9,7 @@ This emulator has two main ways to emulate. One is a simple NeoPixel strip with 
 
 ## modules
 
-Here be modules.
+Here be original circuitpython modules.
 
   * `emulator_backend`:  emulate the `circuitpython` `neopixel`  API  (see `neopixel_emulator` for LED emulation)
   * `pixel`: simple class to hold pixel information 
@@ -19,16 +19,55 @@ Here be modules.
   * `neopixel_viewer`: demonstration 
   * `neopixel_neomatrix`: demonstration
 
-		
-# micropython NeoPixel
+## MicroPython modules
 
-NeoPixel class emulator in CPython with Pyglet for `micropython` `neopixel` class.
+Since micropython and circuitpython  neopixel classes have different methods for pixel access, modules for micropython have been created.  NeoPixel class emulator in CPython with Pyglet for `micropython` `neopixel` class.  New modules are:
 
   * `upy_backend`:  emulate the `micropython` `neopixel`  API  (see `neopixel_emulator` for LED emulation)
-  * `upy_effects`: drive effects into LED strip, `micropython` dependent  emulator of LED hardware
-          - circuitpython and micropython neopixel classes have different methods for pixel access.
-  * `led_panel`: demonstration class with effects derived from <https://github.com/MikeEllis-personal/DMXfire.git>
-  * `rjstext`: demonstration drive led_panel
-  * `upy_viewer`: demonstration
-  * `upy_matrix`: demonstration
+  * `upy_effects`: drive effects into LED strip, `micropython` dependent  emulator of LED hardware replaces `neopixel_effects`
 
+Examples are:
+
+  * `led_panel`: demonstration class with effects derived from <https://github.com/MikeEllis-personal/DMXfire.git>
+  * `rjstest`: demonstration drive led_panel
+  * `upy_viewer`: demonstration (examples)
+  * `upy_matrix`: demonstration
+  * `effects`: unused
+
+Reused modules:
+
+* `neopixel_emulator`: used by `upy_backend`
+  - clean up for new pyglet version.
+  - can change pixel size.
+  - set numpixels/row for linear strip.
+* `neopixel_gfx`: only code clean up (ruff) used by examples
+* `pixel`: only code clean up (ruff)
+
+
+
+
+## Usage: With pyglet in your python path (e.g. venv):
+
+### From CPython:
+```
+python -m examples.upy_viewer
+python -m examples.upy_matrix
+python -m examples.rjstest
+```
+
+### from iPython:
+```
+import examples.upy_viewer
+import examples.rjstest as rt
+rt.fire_test()
+```
+
+### From MicroPython:
+
+Interactive from REPL
+
+```
+import examples.upy_viewer
+import examples.rjstest as rt
+rt.fire_test()
+```
