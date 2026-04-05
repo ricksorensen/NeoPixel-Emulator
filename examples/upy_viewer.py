@@ -18,7 +18,7 @@ def mydelay(ms):
 
 
 def run():
-    pixels = NeoPixel(machine.Pin(2), 51)  # pixsize=10
+    pixels = NeoPixel(machine.Pin(1), 51)  # pixsize=10
     # pixels.begin()
     effects = NeoPixel_Effects(pixels)
     pixels[2] = (255, 200, 10)
@@ -38,7 +38,7 @@ def run():
     effects.rainbow(20)
     effects.colorWipe((150, 150, 0), 40)
     effects.rainbowCycle(20, 2)
-    if not _real_hardware:
+    if not _realhardware:
         pixels.fclose()
 
 
