@@ -88,24 +88,26 @@ For MicroPython:
 
 + run with the home directory mounted:
 ```
->mpremote mount .   # connects to hardware and makes current directory accessible
+>mpremote mount .   # connects to hardware, starts REPL with host directory as currentn dir
 ```
 + download the required modules to device.  Note that the upy_* modules are not necessary.
 ```
 >mpremote mkdir :examples
 >mpremote cp examples/*.py :examples    # copy examples to device
+>mpremote                               # start REPL
 ```
 
 ### From CPython:
 ```
-python -m examples.upy_viewer
+python -m examples.upy_viewer  
 python -m examples.upy_matrix
-python -m examples.rjstest      # uses led_panel
+python -m examples.rjstest      # uses led_panel, runs fire_test()
 ```
 
 ### from iPython:
 ```
-import examples.upy_viewer
+import examples.upy_viewer as view
+view.run()
 import examples.rjstest as rt   # uses led_panel
 rt.fire_test()
 ```
@@ -115,7 +117,8 @@ rt.fire_test()
 Interactive from REPL
 
 ```
-import examples.upy_viewer
+import examples.upy_viewer as view
+view.run(ledPin=1)
 import examples.rjstest as rt
-rt.fire_test()
+rt.fire_test(ledPin=1)
 ```
