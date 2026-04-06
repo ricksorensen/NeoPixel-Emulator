@@ -48,17 +48,65 @@ Reused modules:
 
 ## Usage: With pyglet in your python path (e.g. venv):
 
+The template for using the emulator or the actual hardware:
+
+```
+_real_hardware = False
+try:
+    from neopixel import NeoPixel
+    import machine
+
+    _realhardware = True
+except ModuleNotFoundError:
+    from upy_backend import NeoPixel
+    from upy_backend import machine
+
+```
+then use as normal.  Remember for initializing the NeoPixel array the pin number is critical for real hardware but insignificant for the emulator. The emulator also has some optional additional parameters to defined the display on linux:
+```
+if _real_hardware:
+	pixels = NeoPixel(ledPin, numberPixels)
+else:
+	pixels = NeoPixel(ledPin, numberPixels, init=True, window_w=1785, window_h=400,pixsize=10)
+```
+add at the end:
+```
+if not _real_hardware:
+	pixels.fclose()      # ends pyglet session and closes display
+```
+
+See `examples/upy_viewer.py` and `example/led_panel.py`.
+
+## Examples
+
+These examples assume:
+
++ pyglet is available
++ in the repository home directory
+
+For MicroPython:
+
++ run with the home directory mounted:
+```
+>mpremote mount .   # connects to hardware and makes current directory accessible
+```
++ download the required modules to device.  Note that the upy_* modules are not necessary.
+```
+>mpremote mkdir :examples
+>mpremote cp examples/*.py :examples    # copy examples to device
+```
+
 ### From CPython:
 ```
 python -m examples.upy_viewer
 python -m examples.upy_matrix
-python -m examples.rjstest
+python -m examples.rjstest      # uses led_panel
 ```
 
 ### from iPython:
 ```
 import examples.upy_viewer
-import examples.rjstest as rt
+import examples.rjstest as rt   # uses led_panel
 rt.fire_test()
 ```
 
