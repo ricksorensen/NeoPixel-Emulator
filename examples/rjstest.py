@@ -9,9 +9,11 @@ fade = 4
 speed = 5
 
 
-def beacon_test(width=30, height=4, speed=128, stripe=10, brightness=255, nrun=100):
+def beacon_test(
+    ledPin=1, width=30, height=4, speed=128, stripe=10, brightness=255, nrun=100
+):
     # Initialise the firelight effect
-    panel = led_panel(pin=1, width=width, height=height)
+    panel = led_panel(pin=ledPin, width=width, height=height)
     print(panel)
 
     for _ in range(nrun):
@@ -33,6 +35,7 @@ def beacon_test(width=30, height=4, speed=128, stripe=10, brightness=255, nrun=1
 
 #  width=30, height=10, speed=80. brightness=80
 def fire_test(
+    ledPin=1,
     width=30,
     height=4,
     ledblock=10,
@@ -43,7 +46,7 @@ def fire_test(
     debug=False,
 ):
     # Initialise the firelight effect
-    panel = led_panel(pin=1, width=width, height=height, ledblock=ledblock)
+    panel = led_panel(pin=ledPin, width=width, height=height, ledblock=ledblock)
     print(panel)
     for _ in range(nrun):
         # print(f"gcfree start: {gc.mem_free()}")
@@ -66,9 +69,11 @@ def fire_test(
     panel.fclose()
 
 
-def strobe_test(width=30, height=4, speed1=10, speed2=20, brightness=255, nrun=100):
+def strobe_test(
+    ledPin=1, width=30, height=4, speed1=10, speed2=20, brightness=255, nrun=100
+):
     # Initialise the firelight effect
-    panel = led_panel(pin=1, width=width, height=height)
+    panel = led_panel(pin=ledPin, width=width, height=height)
     print(panel)
 
     for _ in range(100):

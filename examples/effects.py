@@ -22,7 +22,7 @@ def update_fill(pix, c=(0, 20, 40), npix=120, start=0, dstart=1, interval=30):
 
 
 def dotest(
-    nstep, pin=2, c=(0, 20, 40), npix=120, start=0, dstart=1, interval=30, tsleep=0.1
+    nstep, pin=1, c=(0, 20, 40), npix=120, start=0, dstart=1, interval=30, tsleep=0.1
 ):
     pix = neopixel.NeoPixel(machine.Pin(pin), npix)
     stepstart = start

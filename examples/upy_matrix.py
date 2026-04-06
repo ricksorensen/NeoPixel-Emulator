@@ -1,5 +1,14 @@
-from upy_backend import NeoPixel
-from neopixel_gfx import Adafruit_GFX
+_realhardware = False
+try:
+    from neopixel import NeoPixel
+    import machine
+
+    _realhardware = True
+except ModuleNotFoundError:
+    from upy_backend import NeoPixel
+    from upy_backend import machine
+
+from .neopixel_gfx import Adafruit_GFX
 from time import sleep
 
 
@@ -24,24 +33,31 @@ class NeoMatrix(Adafruit_GFX):
         self.absoluteWidth = width
         self.absoluteHeight = height
         self.pin = pin
-        self.pixels = NeoPixel(
-            self.pin, self.width * self.height, pixsize=pixsize, init=False
-        )
         self.pixsize = pixsize
-        self.begin(width=width, height=height)
+        if _realhardware:
+            self.pixels = NeoPixel(machine.Pin(self.pin), self.width * self.height)
+        else:
+            self.pixels = NeoPixel(
+                machine.Pin(self.pin),
+                self.width * self.height,
+                pixsize=pixsize,
+                init=False,
+            )
+            self.begin(width=width, height=height)
 
     def delay(self, ms):
         sleep(ms / 1000)
 
     def begin(self, width, height):
-        needed_w = self.width * self.pixsize
-        needed_h = self.height * (self.pixsize - 1) + 4
-        self.pixels.begin(
-            width=self.width,
-            height=self.height,
-            window_w=needed_w,
-            window_h=needed_h,
-        )
+        if not _realhardware:
+            needed_w = self.width * self.pixsize
+            needed_h = self.height * (self.pixsize - 1) + 4
+            self.pixels.begin(
+                width=self.width,
+                height=self.height,
+                window_w=needed_w,
+                window_h=needed_h,
+            )
 
     def drawPixel(self, x, y, color):
         x, y = self.mapPixelToRotation(x, y)
@@ -51,23 +67,26 @@ class NeoMatrix(Adafruit_GFX):
             self.pixels[y * self.width + x] = color
 
     def show(self):
-        self.pixels.gui.render()
-        _ = self.pixels.gui.dispatch_events()
+        if _realhardware:
+            self.pixels.write()
+        else:
+            self.pixels.gui.render()
+            _ = self.pixels.gui.dispatch_events()
 
     def setBrightness(self, new_brightness):  # use opacity to represent this
-        if new_brightness >= 0 and new_brightness <= 100:
-            self.brightness = new_brightness
-            self.pixels.gui.change_brightness(self.brightness)
-        else:
-            return False
+        if not _realhardware:
+            if new_brightness >= 0 and new_brightness <= 100:
+                self.brightness = new_brightness
+                self.pixels.gui.change_brightness(self.brightness)
 
 
 bitmap_array = [0x00, 0x84 >> 1, 0x84 >> 1, 0x00, 0x00, 0x84 >> 1, 0x78 >> 1, 0x00]
 
-if __name__ == "__main__":
+
+def dotest(ledPin: int = 1):
     matrix = NeoMatrix()
     matrix.create_matrix(
-        6,
+        1,  # pin
         15,
         10,
         pixsize=10,
@@ -106,3 +125,9 @@ if __name__ == "__main__":
     )
     matrix.show()
     matrix.delay(3000)
+    if not _realhardware:
+        matrix.pixels.fclose()
+
+
+if __name__ == "__main__":
+    dotest(ledPin=1)
