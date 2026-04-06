@@ -1,4 +1,4 @@
-_real_hardware = False
+_realhardware = False
 try:
     from neopixel import NeoPixel
     import machine
@@ -9,7 +9,7 @@ except ModuleNotFoundError:
     from upy_backend import machine
 
 
-from upy_effects import NeoPixel_Effects
+from .upy_effects import NeoPixel_Effects  # import from this directory
 import time
 
 
