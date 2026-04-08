@@ -2,8 +2,8 @@
 MicroPython NeoPixel Strip emulation.
 """
 
-from pixel import Pixel
-from neopixel_emulator import NeoPixel_Emulator
+from .pixel import Pixel
+from .neopixel_emulator import NeoPixel_Emulator
 
 
 class machine:

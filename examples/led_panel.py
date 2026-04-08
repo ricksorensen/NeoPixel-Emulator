@@ -9,8 +9,8 @@ try:
 
     pixreal = True
 except ModuleNotFoundError:
-    from upy_backend import NeoPixel
-    from upy_backend import machine
+    from neopixemu.upy_backend import NeoPixel
+    from neopixemu.upy_backend import machine
 
     pixreal = False
 

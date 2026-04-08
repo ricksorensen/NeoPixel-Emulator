@@ -1,18 +1,5 @@
-from effect_panel import effect_panel
+from .effect_panel import effect_panel  # insist on using local module
 import gc
-
-pixreal = False
-try:
-    from neopixel import NeoPixel
-    import machine
-
-    pixreal = True
-except ModuleNotFoundError:
-    from upy_backend import NeoPixel
-    from upy_backend import machine
-
-    pixreal = False
-
 
 brightness = 0
 red = 1
@@ -22,11 +9,11 @@ fade = 4
 speed = 5
 
 
-def beacon_test(width=30, height=4, speed=128, stripe=10, brightness=255, nrun=100):
+def beacon_test(
+    ledPin=1, width=30, height=4, speed=128, stripe=10, brightness=255, nrun=100
+):
     # Initialise the firelight effect
-    panel = effect_panel(
-        NeoPixel(machine.Pin(2), width * height), width=width, height=height
-    )
+    panel = effect_panel(pin=ledPin, width=width, height=height)
     print(panel)
 
     for _ in range(nrun):
@@ -48,6 +35,7 @@ def beacon_test(width=30, height=4, speed=128, stripe=10, brightness=255, nrun=1
 
 #  width=30, height=10, speed=80. brightness=80
 def fire_test(
+    ledPin=1,
     width=30,
     height=4,
     ledblock=10,
@@ -58,12 +46,7 @@ def fire_test(
     debug=False,
 ):
     # Initialise the firelight effect
-    panel = effect_panel(
-        NeoPixel(machine.Pin(2), width * height),
-        width=width,
-        height=height,
-        ledblock=ledblock,
-    )
+    panel = effect_panel(pin=ledPin, width=width, height=height, ledblock=ledblock)
     print(panel)
     for _ in range(nrun):
         # print(f"gcfree start: {gc.mem_free()}")
@@ -86,11 +69,11 @@ def fire_test(
     panel.fclose()
 
 
-def strobe_test(width=30, height=4, speed1=10, speed2=20, brightness=255, nrun=100):
+def strobe_test(
+    ledPin=1, width=30, height=4, speed1=10, speed2=20, brightness=255, nrun=100
+):
     # Initialise the firelight effect
-    panel = effect_panel(
-        NeoPixel(machine.Pin(2), width * height), width=width, height=height
-    )
+    panel = effect_panel(pin=ledPin, width=width, height=height)
     print(panel)
 
     for _ in range(100):
@@ -111,6 +94,7 @@ def strobe_test(width=30, height=4, speed1=10, speed2=20, brightness=255, nrun=1
 
 
 def fourth_test(
+    ledPin=1,
     npix=120,
     width=30,
     height=4,
@@ -124,9 +108,8 @@ def fourth_test(
     top=True,
 ):
     # Initialise the firelight effect
-    pix = NeoPixel(machine.Pin(2), npix)
     panel = effect_panel(
-        pix,
+        pin=ledPin,
         width=width,
         height=height,
         ledblock=ledblock,
@@ -156,6 +139,7 @@ def fourth_test(
 
 
 def flag_test(
+    ledPin=1,
     npix=120,
     size=24,
     niter=2,
@@ -164,8 +148,7 @@ def flag_test(
     debug=False,
 ):
     # Initialise the firelight effect
-    pix = NeoPixel(machine.Pin(2), npix)
-    panel = effect_panel(pix, width=npix, height=1)
+    panel = effect_panel(ledPin, width=npix, height=1)
     print(panel)
     for _ in range(nrun):
         # print(f"gcfree start: {gc.mem_free()}")
@@ -181,3 +164,9 @@ def flag_test(
     panel.update()
     print("Finished")
     panel.fclose()
+
+
+if __name__ == "__main__":
+    fourth_test(flag=False)
+    fourth_test(flag=True)
+    flag_test()

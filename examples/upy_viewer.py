@@ -1,3 +1,6 @@
+from .upy_effects import NeoPixel_Effects  # import from this directory
+import time
+
 _realhardware = False
 try:
     from neopixel import NeoPixel
@@ -5,12 +8,8 @@ try:
 
     _realhardware = True
 except ModuleNotFoundError:
-    from upy_backend import NeoPixel
-    from upy_backend import machine
-
-
-from .upy_effects import NeoPixel_Effects  # import from this directory
-import time
+    from neopixemu.upy_backend import NeoPixel
+    from neopixemu.upy_backend import machine
 
 
 def mydelay(ms):

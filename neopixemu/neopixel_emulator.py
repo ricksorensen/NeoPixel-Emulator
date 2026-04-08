@@ -1,3 +1,4 @@
+from . import DATADIR
 import pyglet
 
 
@@ -10,7 +11,7 @@ class NeoPixel_Emulator(pyglet.window.Window):
         self.led_group = pyglet.graphics.Group(order=0)
         self.color_group = pyglet.graphics.Group(order=1)
         self.alive = 1
-        self.circle_img = pyglet.image.load(f"circle{pixsize}.png")
+        self.circle_img = pyglet.image.load(f"{DATADIR}/circle{pixsize}.png")
         self.pixsize = pixsize
         self.n_per_row = window_w // (pixsize)
 

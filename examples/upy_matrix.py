@@ -1,3 +1,6 @@
+from .neopixel_gfx import Adafruit_GFX
+from time import sleep
+
 _realhardware = False
 try:
     from neopixel import NeoPixel
@@ -5,11 +8,8 @@ try:
 
     _realhardware = True
 except ModuleNotFoundError:
-    from upy_backend import NeoPixel
-    from upy_backend import machine
-
-from .neopixel_gfx import Adafruit_GFX
-from time import sleep
+    from neopixemu.upy_backend import NeoPixel
+    from neopixemu.upy_backend import machine
 
 
 class NeoMatrix(Adafruit_GFX):
