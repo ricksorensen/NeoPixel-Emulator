@@ -16,9 +16,13 @@ def mydelay(ms):
     time.sleep(ms / 1000)
 
 
-def run(ledPin=1):
+def run(ledPin=1, pixsize=10):
     print("Using ledPin {}".format(ledPin))
-    pixels = NeoPixel(machine.Pin(ledPin), 51)  # pixsize=10
+    pixels = (
+        NeoPixel(machine.Pin(ledPin), 51)
+        if _realhardware
+        else NeoPixel(machine.Pin(ledPin), 51, pixsize=pixsize)
+    )
     # pixels.begin()
     effects = NeoPixel_Effects(pixels)
     pixels[2] = (255, 200, 10)

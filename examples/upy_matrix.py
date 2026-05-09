@@ -83,13 +83,13 @@ class NeoMatrix(Adafruit_GFX):
 bitmap_array = [0x00, 0x84 >> 1, 0x84 >> 1, 0x00, 0x00, 0x84 >> 1, 0x78 >> 1, 0x00]
 
 
-def dotest(ledPin: int = 1):
+def dotest(ledPin: int = 1, pixsize=10):
     matrix = NeoMatrix()
     matrix.create_matrix(
         1,  # pin
         15,
         10,
-        pixsize=10,
+        pixsize=pixsize,
     )
     # matrix.begin()
     matrix.show()

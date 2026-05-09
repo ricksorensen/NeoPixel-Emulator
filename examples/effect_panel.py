@@ -49,17 +49,18 @@ def _cycle_rng(pix, ct=60, top=False):
 
 
 class effect_panel:
-    def __init__(self, pin, width, height, statemachine=0, ledblock=10, debug=False):
+    def __init__(
+        self, pin, width, height, statemachine=0, ledblock=10, debug=False, pixsize=10
+    ):
         # Create the StateMachine with the ws2812 program
         self._npix = width * height
         if pixreal:
             self._pix = NeoPixel(machine.Pin(pin), self._npix)
         else:
-            psize = 10
-            wframe = width * psize
-            hframe = (height + 1) * psize
+            wframe = width * pixsize
+            hframe = (height + 1) * pixsize
             self._pix = NeoPixel(
-                pin, self._npix, window_w=wframe, window_h=hframe, pixsize=10
+                pin, self._npix, window_w=wframe, window_h=hframe, pixsize=pixsize
             )
             # self._pix.begin(window_w=wframe, window_h=hframe)     # called by default
         self._pin = pin

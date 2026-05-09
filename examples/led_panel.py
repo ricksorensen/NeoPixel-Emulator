@@ -16,16 +16,15 @@ except ModuleNotFoundError:
 
 
 class led_panel:
-    def __init__(self, pin, width, height, statemachine=0, ledblock=10):
+    def __init__(self, pin, width, height, statemachine=0, ledblock=10, pixsize=10):
         # Create the StateMachine with the ws2812 program
         if pixreal:
             self._pix = NeoPixel(machine.Pin(pin), width * height)
         else:
-            psize = 10
-            wframe = width * psize
-            hframe = (height + 1) * psize
+            wframe = width * pixsize
+            hframe = (height + 1) * pixsize
             self._pix = NeoPixel(
-                pin, width * height, window_w=wframe, window_h=hframe, pixsize=10
+                pin, width * height, window_w=wframe, window_h=hframe, pixsize=pixsize
             )
             # self._pix.begin(window_w=wframe, window_h=hframe)     # called by default
         self._pin = pin

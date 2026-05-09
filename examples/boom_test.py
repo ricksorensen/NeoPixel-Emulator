@@ -96,18 +96,20 @@ def do1(pix, brightness=0.5, dly=5, vel=None):
     pix.write()
 
 
-def domain(pin=1):
+def domain(pin=1, pixsize=10):
     _realhardware = False
     try:
         import machine
         from neopixel import NeoPixel
 
+        p = NeoPixel(machine.Pin(1), 100)
         _realhardware = True
     except ModuleNotFoundError:
         from neopixemu.upy_backend import NeoPixel
         from neopixemu.upy_backend import machine
 
-    p = NeoPixel(machine.Pin(1), 100)
+        p = NeoPixel(machine.Pin(1), 100, pixsize=pixsize)
+
     do1(p)
     if not _realhardware:
         p.fclose()

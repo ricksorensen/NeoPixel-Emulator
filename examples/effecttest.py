@@ -10,10 +10,17 @@ speed = 5
 
 
 def beacon_test(
-    ledPin=1, width=30, height=4, speed=128, stripe=10, brightness=255, nrun=100
+    ledPin=1,
+    width=30,
+    height=4,
+    speed=128,
+    stripe=10,
+    brightness=255,
+    nrun=100,
+    pixsize=10,
 ):
     # Initialise the firelight effect
-    panel = effect_panel(pin=ledPin, width=width, height=height)
+    panel = effect_panel(pin=ledPin, width=width, height=height, pixsize=pixsize)
     print(panel)
 
     for _ in range(nrun):
@@ -44,9 +51,12 @@ def fire_test(
     fade=255,
     nrun=100,
     debug=False,
+    pixsize=10,
 ):
     # Initialise the firelight effect
-    panel = effect_panel(pin=ledPin, width=width, height=height, ledblock=ledblock)
+    panel = effect_panel(
+        pin=ledPin, width=width, height=height, ledblock=ledblock, pixsize=pixsize
+    )
     print(panel)
     for _ in range(nrun):
         # print(f"gcfree start: {gc.mem_free()}")
@@ -70,10 +80,17 @@ def fire_test(
 
 
 def strobe_test(
-    ledPin=1, width=30, height=4, speed1=10, speed2=20, brightness=255, nrun=100
+    ledPin=1,
+    width=30,
+    height=4,
+    speed1=10,
+    speed2=20,
+    brightness=255,
+    nrun=100,
+    pixsize=10,
 ):
     # Initialise the firelight effect
-    panel = effect_panel(pin=ledPin, width=width, height=height)
+    panel = effect_panel(pin=ledPin, width=width, height=height, pixsize=pixsize)
     print(panel)
 
     for _ in range(100):
@@ -106,6 +123,7 @@ def fourth_test(
     flag=False,
     debug=False,
     top=True,
+    pixsize=10,
 ):
     # Initialise the firelight effect
     panel = effect_panel(
@@ -113,6 +131,7 @@ def fourth_test(
         width=width,
         height=height,
         ledblock=ledblock,
+        pixsize=pixsize,
     )
     print(panel)
     for _ in range(nrun):
@@ -146,9 +165,10 @@ def flag_test(
     brightness=255,
     nrun=100,
     debug=False,
+    pixsize=10,
 ):
     # Initialise the firelight effect
-    panel = effect_panel(ledPin, width=npix, height=1)
+    panel = effect_panel(ledPin, width=npix, height=1, pixsize=pixsize)
     print(panel)
     for _ in range(nrun):
         # print(f"gcfree start: {gc.mem_free()}")
